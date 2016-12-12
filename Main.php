@@ -71,7 +71,7 @@ class Main extends PluginBase implements Listener {
 	
 	public function onJoin(PlayerJoinEvent $ev) {
 		$player = $ev->getPlayer();
-		foreach($player->getInventory()->getItem() as $inv) {
+		foreach($player->getInventory()->getItems() as $inv) {
 			if(!$inv->getId() === "338") {
 				if(!$inv->getId() === "347") {
 					$this->onGive($player);
