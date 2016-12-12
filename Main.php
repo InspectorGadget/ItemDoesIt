@@ -8,6 +8,7 @@ use pocketmine\Player;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerItemHeldEvent;
 use pocketmine\event\player\PlayerJoinEvent;
+use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\level\Level;
 use pocketmine\item\Item;
 use pocketmine\entity\Effect;
@@ -72,14 +73,25 @@ class Main extends PluginBase implements Listener {
 	public function onJoin(PlayerJoinEvent $ev) {
 		$player = $ev->getPlayer();
 		foreach($player->getInventory()->getItems() as $inv) {
-			if(!$inv->getId() === "338") {
-				if(!$inv->getId() === "347") {
-					$this->onGive($player);
-				}
+			if($inv->getId() !== 388) {
+				$this->getLogger()->warning("passed");
+				$this->onGive($player);
 			}
 		
 		}
 		
+	}
+	
+	// Temp prior to onjoin verification doesnt work.. this doesnt work either error is from Item::getItem
+	public function onQuit(PlayerQuitEvent $e) {
+	
+		$p = $e->getPlayer();
+		$i = $p->getInventory();
+		$i = Item::getItem(388, 0, 1);
+		$ii = Item::getItem(347, 0, 1);
+			$i->removeItem($i);
+			$i->removeItem($ii);
+			$this->getLogger()->warning("passed2");
 	}
 	
 	public function onDisable() {
